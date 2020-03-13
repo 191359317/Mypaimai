@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.auctionMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.pojo.auction" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="aprice" property="aprice" jdbcType="INTEGER" />
+    <result column="atime" property="atime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aid, gid, uid, aprice, atime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auction
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from auction
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.accp.pojo.auction" >
+    insert into auction (aid, gid, uid, 
+      aprice, atime)
+    values (#{aid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{aprice,jdbcType=INTEGER}, #{atime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.pojo.auction" >
+    insert into auction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="aprice != null" >
+        aprice,
+      </if>
+      <if test="atime != null" >
+        atime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="aprice != null" >
+        #{aprice,jdbcType=INTEGER},
+      </if>
+      <if test="atime != null" >
+        #{atime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.pojo.auction" >
+    update auction
+    <set >
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="aprice != null" >
+        aprice = #{aprice,jdbcType=INTEGER},
+      </if>
+      <if test="atime != null" >
+        atime = #{atime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.pojo.auction" >
+    update auction
+    set gid = #{gid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      aprice = #{aprice,jdbcType=INTEGER},
+      atime = #{atime,jdbcType=TIMESTAMP}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>
